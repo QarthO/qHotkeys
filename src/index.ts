@@ -133,7 +133,8 @@ export const qKeys = {
   ScrollLock: 0x0046,
   PrintScreen: 0x0E37,
   // + Addtions
-  Cmd: 0x0E5B // MacOS Command Key
+  Cmd: 0x0E5B, // MacOS Command Key
+  CmdOrCtrl: process.platform === 'darwin' ? 0x0E5B : 0x001D // Command or Control (like Electron's)
 } as const
 
 export const getKeyFromCode = (code: number): string | undefined => {
