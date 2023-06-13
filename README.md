@@ -42,8 +42,7 @@ app.whenReady().then(() => {
         console.log("I scrolled down!")
     }
 
-    const KEY_CMD_OR_CTRL = process.platform === 'darwin' ? qKeys.Cmd : qKeys.Ctrl
-    hotkeys.register([KEY_CMD_OR_CTRL, qKeys.X], action)
+    hotkeys.register([qKeys.CmdOrCtrl, qKeys.X], action)
     hotkeys.registerScroll(scrollUpAction, scrollDownAction)
     
     hotkeys.run()
@@ -56,9 +55,11 @@ app.whenReady().then(() => {
 ## To-Do List
 This project is early in development and I have lots of ideas to expand the capabilities. Here's a roadmap of expected additions.
 
-- Have action functions callback with event info
+- Add event info to the action callbacks
 - Individual scroll registers
-- Check os platform (Implement Native CMD_OR_CTRL enum key)
+- Add mouse buttons
+- Add mouse move
+- Horizontal Scroll
 
 Anymore ideas? Create an issue on the github page!
 
