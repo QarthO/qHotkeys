@@ -56,16 +56,15 @@ app.whenReady().then(() => {
 ## To-Do List
 This project is early in development and I have lots of ideas to expand the capabilities. Here's a roadmap of expected additions.
 
-- Implement built in keymap that way you don't need to use raw numbers
 - Have action functions callback with event info
 - Individual scroll registers
-- Check os platform (Native CMD_OR_CTRL enum key)
+- Check os platform (Implement Native CMD_OR_CTRL enum key)
 
 Anymore ideas? Create an issue on the github page!
 
 ## License
 
-[GNU General Public License v3.0](https://github.com/QarthO/qHotkeys/blob/main/LICENSE)
+[MIT](https://github.com/QarthO/qHotkeys/blob/main/LICENSE)
 
 Maintained by [QarthO](https://github.com/qartho).
 
