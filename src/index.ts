@@ -154,7 +154,7 @@ export class qHotkeys {
     this.scroll_hotkey_map.set(keys, [upAction, downAction])
   }
 
-  public run = (debug: boolean): void => {
+  public run = (debug = false): void => {
     uIOhook.on('keydown', (event) => {
       const key: number = event.keycode
       if (!this.keys_pressed.includes(key)) {
