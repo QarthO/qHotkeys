@@ -42,7 +42,7 @@ app.whenReady().then(() => {
         console.log("I scrolled down!")
     }
 
-    hotkeys.register([qKeys.CmdOrCtrl, qKeys.X], action)
+    hotkeys.register([qKeys.CmdOrCtrl, qKeys.X], hotkeyAction)
     hotkeys.registerScroll(scrollUpAction, scrollDownAction)
     
     hotkeys.run()
