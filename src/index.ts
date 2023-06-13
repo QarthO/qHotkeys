@@ -3,12 +3,12 @@ import { uIOhook } from 'uiohook-napi'
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type action = () => void
 
-export type qKeyMap = {
-  [key_name: string | number]: number
-}
+// export type qKeyMap = {
+//   [key_name: string | number]: number
+// }
 
 // Same mapping from UiohookKey + Additions
-export const qKeys: qKeyMap = {
+export const qKeys = {
   Backspace: 0x000E,
   Tab: 0x000F,
   Enter: 0x001C,
