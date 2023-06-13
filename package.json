@@ -1,8 +1,9 @@
 {
   "name": "qhotkeys",
-  "version": "1.0.2",
+  "version": "1.0.5",
   "description": "Electron global shortcut registrar that doesn't override pre-existing shortcuts",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "keywords": [
     "iohook",
     "hook",

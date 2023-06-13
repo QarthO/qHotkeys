@@ -3,7 +3,7 @@ import { uIOhook } from 'uiohook-napi'
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type action = () => void
 
-type qKeyMap = {
+export type qKeyMap = {
   [key_name: string | number]: number
 }
 
@@ -156,7 +156,6 @@ export class qHotkeys {
 
   public run = (debug: boolean): void => {
     uIOhook.on('keydown', (event) => {
-      console.log(event.keycode)
       const key: number = event.keycode
       if (!this.keys_pressed.includes(key)) {
         this.keys_pressed.push(key)
