@@ -65,7 +65,7 @@ Anymore ideas? Create an issue on the github page!
 
 ## License
 
-MIT
+[GNU General Public License v3.0](https://github.com/QarthO/qHotkeys/blob/main/LICENSE)
 
 Maintained by [QarthO](https://github.com/qartho).
 
