@@ -43,13 +43,13 @@ app.whenReady().then(() => {
     }
 
     // Registers your hotkey actions
-    hotkeys.register([qKeys.CmdOrCtrl, qKeys.X], hotkeyAction)
     // Command or Control + X = hotkeyAction called
+    hotkeys.register([qKeys.CmdOrCtrl, qKeys.X], hotkeyAction)
     
     // Registers your scroll actions
-    hotkeys.registerScroll([qKeys.CmdOrCtrl], scrollUpAction, scrollDownAction)
     // Command or Control + ScrollUp = scrollUpAction called
     // Command or Control + ScrollDown = scrollDownAction called
+    hotkeys.registerScroll([qKeys.CmdOrCtrl], scrollUpAction, scrollDownAction)
     
     // For scroll register, the hotkey list can be empty
     hotkeys.registerScroll([], scrollUpAction, scrollDownAction)
