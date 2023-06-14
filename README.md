@@ -1,9 +1,9 @@
 # qHotkeys
-Global shotcut replacement for [Electron](https://www.electronjs.org/) without preventing native OS shortcuts.
+Global shotcut replacement for [Electron's](https://www.electronjs.org/docs/latest/api/global-shortcut) without preventing native OS shortcuts.
 
 This project utilizes [uiohook-napi](https://npmjs.org/uiohook-napi). It depends on them and might not work on every system nor node/electron version.
 
-My purpose in creating qHotkeys was to be a replacement for [Electron's global shortcut](https://www.electronjs.org/docs/latest/api/global-shortcut). With qHotkeys you can create a shortcut such as ``CommandOrControl + X`` and your app will still recognize the input AND your os will perform the 'cut' action
+My purpose in creating qHotkeys was to be a replacement for Electron's global shortcut. With qHotkeys you can create a shortcut such as ``CommandOrControl + X`` and your app will still recognize the input AND your os will perform the 'cut' action
 
 This project is early in development. Report any bugs or issues on the [GitHub](https://github.com/qartho/qhotkeys/issues/) issue tracker.
 
