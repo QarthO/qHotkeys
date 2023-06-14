@@ -1,5 +1,5 @@
 # qHotkeys
-Global shotcut replacement for [Electron] without preventing native OS shortcuts.
+Global shotcut replacement for [Electron](https://www.electronjs.org/) without preventing native OS shortcuts.
 
 This project utilizes [uiohook-napi](https://npmjs.org/uiohook-napi). It depends on them and might not work on every system nor node/electron version.
 
