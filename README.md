@@ -1,13 +1,11 @@
 # qHotkeys
-Electron global hotkeys without overriding native hotkeys
+Global shotcut replacement for [Electron] without preventing native OS shortcuts.
 
-# Important note
-This project is a wrapper that utilizes [uiohook-napi](https://npmjs.org/uiohook-napi). It depends on them and might not work on every system nor node/electron version.
+This project utilizes [uiohook-napi](https://npmjs.org/uiohook-napi). It depends on them and might not work on every system nor node/electron version.
 
-My purpose in creating qHotkeys was to be a replacement for [Electron]'s [globalShortcut]. globalShotcut overrides the native os's shortcuts. With qHotkeys you can create a shortcut such as ``CTRL + C`` and if you're on windows, will still copy whatever to your clipboard AND perform the action qHotkeys was passed.
+My purpose in creating qHotkeys was to be a replacement for [Electron's global shortcut](https://www.electronjs.org/docs/latest/api/global-shortcut). With qHotkeys you can create a shortcut such as ``CommandOrControl + X`` and your app will still recognize the input AND your os will perform the 'cut' action
 
-
-This is a work in progress. So expect bugs [Issues/Ideas?](https://github.com/qartho/qhotkeys/issues/)
+This project is work in progress. So expect bugs [Issues/Ideas?](https://github.com/qartho/qhotkeys/issues/)
 
 ## Installation
 
@@ -18,7 +16,7 @@ npm i qHotkeys
 ```
 
 
-##### Keyboard Inputs
+#### Example Implementation
 
 ```JavaScript
 
@@ -53,7 +51,7 @@ app.whenReady().then(() => {
 ```
 
 ## To-Do List
-This project is early in development and I have lots of ideas to expand the capabilities. Here's a roadmap of expected additions.
+This project is early in development and I have lots of ideas to expand the capabilities. Here's a roadmap of planned additions to qHotkeys.
 
 - Add event info to the action callbacks
 - Individual scroll registers
