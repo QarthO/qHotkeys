@@ -5,7 +5,7 @@ This project utilizes [uiohook-napi](https://npmjs.org/uiohook-napi). It depends
 
 My purpose in creating qHotkeys was to be a replacement for [Electron's global shortcut](https://www.electronjs.org/docs/latest/api/global-shortcut). With qHotkeys you can create a shortcut such as ``CommandOrControl + X`` and your app will still recognize the input AND your os will perform the 'cut' action
 
-This project is work in progress. So expect bugs [Issues/Ideas?](https://github.com/qartho/qhotkeys/issues/)
+This project is work in progress. So expect bugs. If you have any issues or new ideas let me know on the [GitHub](https://github.com/qartho/qhotkeys/issues/) page!
 
 ## Installation
 
