@@ -147,7 +147,7 @@ export class qHotkeys {
   private scroll_hotkey_map: Map<number[], action[]> = new Map()
 
   public register = (keys: number[], action: () => void): void => {
-    if (!keys) return console.log(`Error: Hotkey map empy for '${action}'`)
+    if (!keys) return console.log(`Error: Hotkey map empty for '${action}'`)
     this.hotkey_map.set(keys, action)
   }
 
@@ -178,14 +178,17 @@ export class qHotkeys {
     })
 
     uIOhook.on('wheel', (event) => {
+      if (this.scroll_hotkey_map.size == 0) return
       const direction = event.rotation === 1 ? 'DOWN' : 'UP'
+      
       if(debug) console.log(`Scrolled ${direction}`)
       this.scroll_hotkey_map.forEach((actions, hotkeys: number[]) => {
-        if (hotkeys.every((key) => this.keys_pressed.includes(key))) {
+        if (hotkeys.length == 0 || hotkeys.every((key) => this.keys_pressed.includes(key))) {
           if (direction === 'UP') actions[0]()
           if (direction === 'DOWN') actions[1]()
         }
       })
+
     })
 
     uIOhook.start()

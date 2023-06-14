@@ -32,7 +32,6 @@ app.whenReady().then(() => {
     // Your custom actions
     const hotkeyAction = () => {
         console.log("I pressed my hotkeys!")
-        // Your code here
     }
 
     const scrollUpAction = () => {
@@ -45,13 +44,18 @@ app.whenReady().then(() => {
 
     // Registers your hotkey actions
     hotkeys.register([qKeys.CmdOrCtrl, qKeys.X], hotkeyAction)
-    // Registers your scroll actions
-    hotkeys.registerScroll(scrollUpAction, scrollDownAction)
+    // Command or Control + X = hotkeyAction called
     
+    // Registers your scroll actions
+    hotkeys.registerScroll([qKeys.CmdOrCtrl], scrollUpAction, scrollDownAction)
+    // Command or Control + ScrollUp = scrollUpAction called
+    // Command or Control + ScrollDown = scrollDownAction called
+    
+    // For scroll register, the hotkey list can be empty
+    hotkeys.registerScroll([], scrollUpAction, scrollDownAction)
+
     // Starts
     hotkeys.run()
-
-
     
     // ...
 })
