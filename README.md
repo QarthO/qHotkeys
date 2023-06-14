@@ -15,21 +15,24 @@ Install qHotkeys using npm:
 npm i qHotkeys
 ```
 
-
-#### Example Implementation
+## Example Implementation
 
 ```JavaScript
 
 import { qKeys, qHotkeys } from 'qHotkeys'
 
+// Create instance
 var hotkeys = new qHotkeys()
 
 // ... 
 app.whenReady().then(() => {
 
     // ...
+
+    // Your custom actions
     const hotkeyAction = () => {
         console.log("I pressed my hotkeys!")
+        // Your code here
     }
 
     const scrollUpAction = () => {
@@ -40,14 +43,18 @@ app.whenReady().then(() => {
         console.log("I scrolled down!")
     }
 
+    // Registers your hotkey actions
     hotkeys.register([qKeys.CmdOrCtrl, qKeys.X], hotkeyAction)
+    // Registers your scroll actions
     hotkeys.registerScroll(scrollUpAction, scrollDownAction)
     
+    // Starts
     hotkeys.run()
+
+
     
     // ...
 })
-
 ```
 
 ## To-Do List
