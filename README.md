@@ -54,6 +54,7 @@ app.whenReady().then(() => {
 This project is early in development and I have lots of ideas to expand the capabilities. Here's a roadmap of planned additions to qHotkeys.
 
 - Add event info to the action callbacks
+- Ability to unregister hotkey
 - Individual scroll registers
 - Add mouse buttons
 - Add mouse move
