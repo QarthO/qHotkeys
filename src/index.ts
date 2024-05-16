@@ -151,6 +151,10 @@ export class qHotkeys {
     this.hotkey_map.set(keys, action)
   }
 
+  public unregisterAll = (): void => {
+    this.hotkey_map.clear()
+  }
+
   public registerScroll = (keys: number[], upAction: () => void, downAction: () => void): void => {
     this.scroll_hotkey_map.set(keys, [upAction, downAction])
   }
