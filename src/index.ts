@@ -1,4 +1,4 @@
-import { uIOhook } from 'uiohook-napi'
+import { uIOhook, UiohookKeyboardEvent, UiohookWheelEvent } from 'uiohook-napi'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type action = () => void
@@ -145,6 +145,7 @@ export class qHotkeys {
   private keys_pressed: number[] = []
   private hotkey_map: Map<number[], action> = new Map()
   private scroll_hotkey_map: Map<number[], action[]> = new Map()
+  private debug: boolean = false
 
   public register = (keys: number[], action: () => void): void => {
     if (!keys) return console.log(`Error: Hotkey map empty for '${action}'`)
@@ -160,45 +161,51 @@ export class qHotkeys {
   }
 
   public run = (debug = false): void => {
-    uIOhook.on('keydown', (event) => {
-      const key: number = event.keycode
-      if (!this.keys_pressed.includes(key)) {
-        this.keys_pressed.push(key)
-        if (debug) console.log(`Pressed: ${getKeyFromCode(key)}`)
-        this.hotkey_map.forEach((action, hotkeys: number[]) => {
-          if (hotkeys.every((key) => this.keys_pressed.includes(key))) {
-            if (debug) console.log(`Hotkey Map Pressed: ${hotkeys}`)
-            action()
-          }
-        })
-      }
-    })
-
-    uIOhook.on('keyup', (event) => {
-      const key: number = event.keycode
-      const i: number = this.keys_pressed.indexOf(key)
-      if (i != -1) this.keys_pressed.splice(i, 1)
-      if (debug) console.log(`Let Go: ${getKeyFromCode(key)}`)
-    })
-
-    uIOhook.on('wheel', (event) => {
-      if (this.scroll_hotkey_map.size == 0) return
-      const direction = event.rotation === 1 ? 'DOWN' : 'UP'
-      
-      if(debug) console.log(`Scrolled ${direction}`)
-      this.scroll_hotkey_map.forEach((actions, hotkeys: number[]) => {
-        if (hotkeys.length == 0 || hotkeys.every((key) => this.keys_pressed.includes(key))) {
-          if (direction === 'UP') actions[0]()
-          if (direction === 'DOWN') actions[1]()
-        }
-      })
-
-    })
-
+    this.debug = debug
+    uIOhook.on('keydown', this._handleKeydown)
+    uIOhook.on('keyup', this._handleKeyup)
+    uIOhook.on('wheel', this._handleWheel)
     uIOhook.start()
   }
 
+  private _handleKeydown = (event: UiohookKeyboardEvent): void => {
+    const key: number = event.keycode
+    if (!this.keys_pressed.includes(key)) {
+      this.keys_pressed.push(key)
+      if (this.debug) console.log(`Pressed: ${getKeyFromCode(key)}`)
+      this.hotkey_map.forEach((action, hotkeys: number[]) => {
+        if (hotkeys.every((key) => this.keys_pressed.includes(key))) {
+          if (this.debug) console.log(`Hotkey Map Pressed: ${hotkeys}`)
+          action()
+        }
+      })
+    }
+  }
+
+  private _handleKeyup = (event: UiohookKeyboardEvent): void => {
+    const key: number = event.keycode
+    const i: number = this.keys_pressed.indexOf(key)
+    if (i != -1) this.keys_pressed.splice(i, 1)
+    if (this.debug) console.log(`Let Go: ${getKeyFromCode(key)}`)
+  }
+
+  private _handleWheel = (event: UiohookWheelEvent): void => {
+    if (this.scroll_hotkey_map.size == 0) return
+    const direction = event.rotation === 1 ? 'DOWN' : 'UP'
+    
+    if(this.debug) console.log(`Scrolled ${direction}`)
+    this.scroll_hotkey_map.forEach((actions, hotkeys: number[]) => {
+      if (hotkeys.length == 0 || hotkeys.every((key) => this.keys_pressed.includes(key))) {
+        if (direction === 'UP') actions[0]()
+        if (direction === 'DOWN') actions[1]()
+      }
+    })
+  }
+
   public stop = (): void => {
+    uIOhook.removeListener('keydown', this._handleKeydown)
+    uIOhook.removeListener('keyup', this._handleKeyup)
+    uIOhook.removeListener('wheel', this._handleWheel)
     uIOhook.stop()
   }
 }
