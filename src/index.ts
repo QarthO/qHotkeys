@@ -152,8 +152,13 @@ export class qHotkeys {
     this.hotkey_map.set(keys, action)
   }
 
-  public unregisterAll = (): void => {
+  public unregisterAll = (scroll = false): void => {
     this.hotkey_map.clear()
+    if(this.debug) console.log('Unregistered all hotkeys')
+    if(scroll) {
+      this.scroll_hotkey_map.clear()
+      if(this.debug) console.log('Unregistered all scroll hotkeys')
+    }
   }
 
   public unregister = (keys: number[]): void => {
@@ -168,6 +173,15 @@ export class qHotkeys {
 
   public registerScroll = (keys: number[], upAction: () => void, downAction: () => void): void => {
     this.scroll_hotkey_map.set(keys, [upAction, downAction])
+  }
+
+  public unregisterScroll = (keys: number[]): void => {
+    this.scroll_hotkey_map.forEach((_, hotkeys: number[]) => {
+      if (hotkeys.every((key) => keys.includes(key)) && hotkeys.length == keys.length) {
+        if (this.debug) console.log(`Unregistered: ${hotkeys.join(' + ')}`)
+        this.scroll_hotkey_map.delete(hotkeys)
+      }
+    })
   }
 
   public run = (debug = false): void => {
