@@ -12,7 +12,7 @@ This project is early in development. Report any bugs or issues on the [GitHub](
 Install qHotkeys using npm:
 
 ```
-npm i qHotkeys
+npm i qhotkeys
 ```
 
 ## Example Implementation
