@@ -194,16 +194,28 @@ export class qHotkeys {
 
   private _handleKeydown = (event: UiohookKeyboardEvent): void => {
     const key: number = event.keycode
-    if (!this.keys_pressed.includes(key)) {
-      this.keys_pressed.push(key)
-      if (this.debug) console.log(`Pressed: ${getKeyFromCode(key)}`)
-      this.hotkey_map.forEach((action, hotkeys: number[]) => {
-        if (hotkeys.every((key) => this.keys_pressed.includes(key))) {
-          if (this.debug) console.log(`Hotkey Map Pressed: ${hotkeys}`)
-          action()
-        }
-      })
-    }
+
+    // ignore if already pressed
+    if(this.keys_pressed.includes(key)) return
+
+    // add to pressed keys
+    this.keys_pressed.push(key)
+
+    // debug
+    if (this.debug) console.log(`Pressed: ${getKeyFromCode(key)}`)
+
+    // loop through hotkey map
+    this.hotkey_map.forEach((action, hotkeys: number[]) => {
+
+      // ignore if not all keys are pressed
+      if(hotkeys.every((key) => !this.keys_pressed.includes(key))) return
+
+        // debug
+        if (this.debug) console.log(`Hotkey Map Pressed: ${hotkeys}`)
+
+        // run action
+        action()
+    })
   }
 
   private _handleKeyup = (event: UiohookKeyboardEvent): void => {
