@@ -130,10 +130,10 @@ export const qKeys = {
   Meta: 0x0E5B,
   MetaRight: 0x0E5C,
   NumLock: 0x0045,
-  Pause: 0x0077,
   ScrollLock: 0x0046,
   PrintScreen: 0x0E37,
   // + Addtions
+  Pause: 0x0077, // Pause Break Key
   Cmd: 0x0E5B, // MacOS Command Key
   CmdOrCtrl: process.platform === 'darwin' ? 0x0E5B : 0x001D // Command or Control (like Electron's)
 } as const
