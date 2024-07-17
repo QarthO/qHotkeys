@@ -130,6 +130,7 @@ export const qKeys = {
   Meta: 0x0E5B,
   MetaRight: 0x0E5C,
   NumLock: 0x0045,
+  Pause: 0x0077,
   ScrollLock: 0x0046,
   PrintScreen: 0x0E37,
   // + Addtions
