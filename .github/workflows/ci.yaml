@@ -1,0 +1,56 @@
+name: Build and Release QHotkeys
+
+on:
+  push:
+    branches:
+      - main  # Set this to the branch you want to build from
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  # Specifies that the job should run on the latest Ubuntu runner
+
+    steps:
+      - uses: actions/checkout@v4  # Checks out your repository under $GITHUB_WORKSPACE
+
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: 'latest'
+
+      - name: Install dependencies with Bun
+        run: bun install
+
+      - name: Build app before publishing
+        run: |
+          bun run build
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-artifacts
+          path: dist
+
+  publish:
+    name: Publish to npm
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/download-artifact@v3
+      name: Download build artifacts
+      with:
+        name: build-artifacts
+        path: dist
+    - uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        registry-url: 'https://registry.npmjs.org'
+    - name: Publish to npm
+      id: publish  # Assign an ID to this step
+      run: npm publish --access public
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+    - name: Automated Version Bump
+      if: steps.publish.outcome == 'success'
+      uses: phips28/gh-action-bump-version@v11.0.7
