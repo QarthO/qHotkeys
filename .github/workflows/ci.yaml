@@ -8,7 +8,7 @@ on:
 jobs:
   publish:
     name: Publish to npm
-    if: '!startsWith(github.event.head_commit.message, "[ci-skip]")'
+    if: ${{ !startsWith(github.event.inputs.from_branch, '[ci-skip]/') }}
     runs-on: ubuntu-latest
     steps:
     - name: Fetch project
