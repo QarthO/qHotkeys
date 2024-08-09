@@ -8,8 +8,8 @@ on:
 jobs:
   build:
     name: Build qHotkeys
-    runs-on: ubuntu-latest  # Specifies that the job should run on the latest Ubuntu runner
-
+    runs-on: ubuntu-latest
+    
     steps:
 
       # Fetches the project from the repo saves it to the $GITHUB_WORKSPACE
