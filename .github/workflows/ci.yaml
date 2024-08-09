@@ -50,6 +50,7 @@ jobs:
         node-version: '20'
         registry-url: 'https://registry.npmjs.org'
     - run: npm ci
+    - run: npm run build
     - name: Publish to npm
       id: publish  # Assign an ID to this step
       run: npm publish --access public
