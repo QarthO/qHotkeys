@@ -6,43 +6,10 @@ on:
       - main  # Set this to the branch you want to build from
 
 jobs:
-  build:
-    name: Build qHotkeys
-    runs-on: ubuntu-latest
-    
-    steps:
-
-      # Fetches the project from the repo saves it to the $GITHUB_WORKSPACE
-      - name: Fetch Project
-        uses: actions/checkout@v4
-
-      # Installs Bun
-      - name: Set up Bun
-        uses: oven-sh/setup-bun@v1
-        with:
-          bun-version: 'latest'
-
-      # Installs dependencies
-      - name: Install dependencies
-        run: bun install
-
-      # Builds the project
-      - name: Build app before publishing
-        run: |
-          bun run build
-
-      # Uploads the build
-      - name: Upload build artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: build-artifacts
-          path: dist
-
   publish:
     name: Publish to npm
     if: github.event_name == 'push' && github.ref == 'refs/heads/main' && contains(github.event.head_commit.message, '[publish]')
     runs-on: ubuntu-latest
-    needs: build
     steps:
     - uses: actions/checkout@v4
     - uses: actions/setup-node@v4
