@@ -7,25 +7,33 @@ on:
 
 jobs:
   build:
+    name: Build qHotkeys
     runs-on: ubuntu-latest  # Specifies that the job should run on the latest Ubuntu runner
 
     steps:
-      - uses: actions/checkout@v4  # Checks out your repository under $GITHUB_WORKSPACE
 
+      # Fetches the project from the repo saves it to the $GITHUB_WORKSPACE
+      - name: Fetch Project
+        uses: actions/checkout@v4
+
+      # Installs Bun
       - name: Set up Bun
         uses: oven-sh/setup-bun@v1
         with:
           bun-version: 'latest'
 
-      - name: Install dependencies with Bun
+      # Installs dependencies
+      - name: Install dependencies
         run: bun install
 
+      # Builds the project
       - name: Build app before publishing
         run: |
           bun run build
 
+      # Uploads the build
       - name: Upload build artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: build-artifacts
           path: dist
@@ -37,15 +45,11 @@ jobs:
     needs: build
     steps:
     - uses: actions/checkout@v4
-    - uses: actions/download-artifact@v3
-      name: Download build artifacts
-      with:
-        name: build-artifacts
-        path: dist
     - uses: actions/setup-node@v4
       with:
         node-version: '20'
         registry-url: 'https://registry.npmjs.org'
+    - run: npm install
     - name: Publish to npm
       id: publish  # Assign an ID to this step
       run: npm publish --access public
