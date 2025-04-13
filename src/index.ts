@@ -205,18 +205,32 @@ export class qHotkeys {
     // debug
     if (this.debug) console.log(`Pressed: ${getKeyFromCode(key)}`)
 
-    // loop through hotkey map
-    this.hotkey_map.forEach((action, hotkeys: number[]) => {
+    // Sort by priority (combinations with more keys first)
+    const sortedHotkeyCombinations = Array.from(this.hotkey_map.entries())
+      .sort((a, b) => b[0].length - a[0].length);
+    
+    // Track matched hotkeys
+    let actionExecuted = false;
 
-      // ignore if not all keys are pressed
-      if(hotkeys.every((key) => !this.keys_pressed.includes(key))) return
-
-        // debug
-        if (this.debug) console.log(`Hotkey Map Pressed: ${hotkeys}`)
-
-        // run action
-        action()
-    })
+    // Check hotkeys in sorted order
+    for (const [hotkeys, action] of sortedHotkeyCombinations) {
+      // Check if all registered keys are pressed
+      if(hotkeys.every((key) => this.keys_pressed.includes(key))) {
+        // Exact matching - the number of pressed keys must exactly match the number of registered keys
+        // Or, this could be configurable through options
+        if(hotkeys.length === this.keys_pressed.length) {
+          // debug
+          if (this.debug) console.log(`Hotkey Map Pressed: ${hotkeys}`)
+  
+          // run action
+          action()
+          
+          // Mark as matched and stop
+          actionExecuted = true;
+          break;
+        }
+      }
+    }
   }
 
   private _handleKeyup = (event: UiohookKeyboardEvent): void => {
