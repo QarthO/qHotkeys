@@ -205,18 +205,32 @@ export class qHotkeys {
     // debug
     if (this.debug) console.log(`Pressed: ${getKeyFromCode(key)}`)
 
-    // loop through hotkey map
-    this.hotkey_map.forEach((action, hotkeys: number[]) => {
+    // 우선순위 순서로 정렬 (키 개수가 많은 조합 우선)
+    const sortedHotkeyCombinations = Array.from(this.hotkey_map.entries())
+      .sort((a, b) => b[0].length - a[0].length);
+    
+    // 매치된 핫키 추적
+    let actionExecuted = false;
 
-      // ignore if not all keys are pressed
-      if(hotkeys.every((key) => !this.keys_pressed.includes(key))) return
-
-        // debug
-        if (this.debug) console.log(`Hotkey Map Pressed: ${hotkeys}`)
-
-        // run action
-        action()
-    })
+    // 정렬된 순서로 핫키 확인
+    for (const [hotkeys, action] of sortedHotkeyCombinations) {
+      // 모든 등록된 키가 눌려있는지 확인
+      if(hotkeys.every((key) => this.keys_pressed.includes(key))) {
+        // 정확한 매칭 - 눌린 키 개수와 등록된 키 개수가 정확히 일치해야 함
+        // 또는, 옵션을 통해 정확한 매칭 여부를 설정할 수 있게 할 수도 있음
+        if(hotkeys.length === this.keys_pressed.length) {
+          // debug
+          if (this.debug) console.log(`Hotkey Map Pressed: ${hotkeys}`)
+  
+          // run action
+          action()
+          
+          // 매치 표시하고 중단
+          actionExecuted = true;
+          break;
+        }
+      }
+    }
   }
 
   private _handleKeyup = (event: UiohookKeyboardEvent): void => {
