@@ -135,7 +135,15 @@ export const qKeys = {
   // + Addtions
   Pause: 0x0077, // Pause Break Key
   Cmd: 0x0E5B, // MacOS Command Key
-  CmdOrCtrl: process.platform === 'darwin' ? 0x0E5B : 0x001D // Command or Control (like Electron's)
+  CmdOrCtrl: process.platform === 'darwin' ? 0x0E5B : 0x001D, // Command or Control (like Electron's)
+  // Multimedia Keys
+  MediaTrackNext: 0xE019,
+  MediaTrackPrevious: 0xE010,
+  MediaStop: 0xE024,
+  MediaPlayPause: 0xE022,
+  VolumeMute: 0xE020,
+  VolumeUp: 0xE030,
+  VolumeDown: 0xE02E
 } as const
 
 export const getKeyFromCode = (code: number): string | undefined => {
@@ -203,7 +211,7 @@ export class qHotkeys {
     this.keys_pressed.push(key)
 
     // debug
-    if (this.debug) console.log(`Pressed: ${getKeyFromCode(key)}`)
+    if (this.debug) console.log(`Pressed: ${getKeyFromCode(key)} key: ${key}`)
 
     // loop through hotkey map
     this.hotkey_map.forEach((action, hotkeys: number[]) => {
